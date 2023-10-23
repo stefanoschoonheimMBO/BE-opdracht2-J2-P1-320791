@@ -8,6 +8,14 @@
     @vite(['resources/scss/instructeur/gebruikteVoertuigen.scss', 'resources/scss/instructeur/global.scss'])
 </head>
 <body>
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
+
     <div id="container">
         <h1>Door instructeur gebruikte voertuigen</h1>
 

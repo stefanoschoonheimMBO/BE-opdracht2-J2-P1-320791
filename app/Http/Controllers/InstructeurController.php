@@ -30,7 +30,7 @@ class InstructeurController extends Controller
     {
         $instructeurId = $instructeur->id;
 
-        $voertuigData = Voertuig::select('voertuigs.id', 'voertuigs.type', 'voertuigs.kenteken', 'voertuigs.bouwjaar', 'voertuigs.brandstof', 'typeVoertuigs.typeVoertuig', 'typeVoertuigs.rijbewijsCategorie')
+        $voertuigGegevens = Voertuig::select('voertuigs.id', 'voertuigs.type', 'voertuigs.kenteken', 'voertuigs.bouwjaar', 'voertuigs.brandstof', 'typeVoertuigs.typeVoertuig', 'typeVoertuigs.rijbewijsCategorie')
             ->join('voertuigInstructeurs', 'voertuigs.id', '=', 'voertuigInstructeurs.voertuigsId')
             ->join('instructeurs', 'voertuigInstructeurs.instructeursId', '=', 'instructeurs.id')
             ->join('typeVoertuigs', 'voertuigs.typeVoertuigsId', '=', 'typeVoertuigs.id')
@@ -38,7 +38,7 @@ class InstructeurController extends Controller
             ->orderBy('typeVoertuigs.rijbewijsCategorie', 'asc')
             ->get();
 
-        return view('instructeur.gebruikteVoertuigen', ['instructeurs' => $instructeur, 'voertuigData' => $voertuigData]);
+        return view('instructeur.gebruikteVoertuigen', ['instructeurs' => $instructeur, 'voertuigGegevens' => $voertuigGegevens]);
     }
 
     public function wijzigenVoertuigen(Instructeur $instructeur, $voertuig)
@@ -46,7 +46,7 @@ class InstructeurController extends Controller
         $instructeurList = Instructeur::all();
         $typeVoertuigList = TypeVoertuig::select('id', 'typeVoertuig')->get();
 
-        $voertuigData = DB::table('voertuigs')
+        $voertuigGegevens = DB::table('voertuigs')
             ->select('voertuigInstructeurs.*', 'voertuigs.id', 'voertuigs.type', 'voertuigs.kenteken', 'voertuigs.bouwjaar', 'voertuigs.brandstof', 'voertuigs.typeVoertuigsId', 'typeVoertuigs.rijbewijscategorie', 'typeVoertuigs.typeVoertuig')
             ->leftJoin('voertuigInstructeurs', 'voertuigs.id', '=', 'voertuigInstructeurs.voertuigsId')
             ->join('typeVoertuigs', 'voertuigs.typeVoertuigsId', '=', 'typeVoertuigs.id')
@@ -55,7 +55,7 @@ class InstructeurController extends Controller
 
         return view('instructeur.wijzigenVoertuigen', [
             'instructeurs' => $instructeur,
-            'voertuigData' => $voertuigData,
+            'voertuigGegevens' => $voertuigGegevens,
             'instructeurList' => $instructeurList,
             'typeVoertuigList' => $typeVoertuigList,
             'voertuigId' => $voertuig,
@@ -151,7 +151,7 @@ class InstructeurController extends Controller
 
     public function alleVoertuigen()
     {
-        $voertuigData = Voertuig::select('voertuigs.id', 'voertuigs.type', 'voertuigs.kenteken', 'voertuigs.bouwjaar', 'voertuigs.brandstof', 'typeVoertuigs.typeVoertuig', 'typeVoertuigs.rijbewijsCategorie', 'instructeurs.id as instructeursId', 'instructeurs.voornaam', 'instructeurs.tussenvoegsel', 'instructeurs.achternaam')
+        $voertuigGegevens = Voertuig::select('voertuigs.id', 'voertuigs.type', 'voertuigs.kenteken', 'voertuigs.bouwjaar', 'voertuigs.brandstof', 'typeVoertuigs.typeVoertuig', 'typeVoertuigs.rijbewijsCategorie', 'instructeurs.id as instructeursId', 'instructeurs.voornaam', 'instructeurs.tussenvoegsel', 'instructeurs.achternaam')
             ->leftJoin('voertuigInstructeurs', 'voertuigs.id', '=', 'voertuigInstructeurs.voertuigsId')
             ->leftJoin('instructeurs', 'voertuigInstructeurs.instructeursId', '=', 'instructeurs.id')
             ->join('typeVoertuigs', 'voertuigs.typeVoertuigsId', '=', 'typeVoertuigs.id')
@@ -159,12 +159,12 @@ class InstructeurController extends Controller
             ->orderBy('instructeurs.achternaam', 'asc')
             ->get();
 
-        if ($voertuigData->isEmpty()) {
+        if ($voertuigGegevens->isEmpty()) {
             $error = 'Er zijn geen voertuigen beschikbaar op dit moment.';
-            return view('instructeur.alleVoertuigen', ['voertuigData' => $voertuigData, 'error' => $error]);
+            return view('instructeur.alleVoertuigen', ['voertuigGegevens' => $voertuigGegevens, 'error' => $error]);
         }
 
-        return view('instructeur.alleVoertuigen', ['voertuigData' => $voertuigData]);
+        return view('instructeur.alleVoertuigen', ['voertuigGegevens' => $voertuigGegevens]);
     }
 
     public function delete(Voertuig $voertuig)

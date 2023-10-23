@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alle voertuigen</title>
 
-    @vite(['resources/scss/instructeur/alleVoertuigen.scss', 'resources/scss/instructeur/global.scss'])
+    @vite(['resources/scss/instructeur/alleVoertuigen.scss', 'resources/css/instructeur/global.css'])
 </head>
 <body>
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
+
     <div id="container">
         <h1>Alle voertuigen</h1>
 

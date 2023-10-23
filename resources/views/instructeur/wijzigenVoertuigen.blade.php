@@ -12,7 +12,7 @@
         <a href="{{route('instructeur.index')}}">Terug naar instructeur lijst</a>
 
         @foreach($voertuigGegevens as $voertuig)
-        <form method="post" action="{{route('instructeur.bijwerken', ['instructeur' => $instructeurs->id, 'voertuig' => $voertuig->id])}}">
+        <form method="post" action="{{route('instructeur.update', ['instructeur' => $instructeurs->id, 'voertuig' => $voertuig->id])}}">
 
             @csrf
             <!-- Laravel requirement -->

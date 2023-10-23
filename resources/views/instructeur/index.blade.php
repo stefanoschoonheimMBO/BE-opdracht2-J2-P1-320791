@@ -8,6 +8,13 @@
     @vite(['resources/scss/instructeur/index.scss', 'resources/scss/instructeur/global.scss'])
 </head>
 <body>
+    <style>
+        img {
+            width: 50px;
+            height: 50px;
+        }
+
+    </style>
     <div id="container">
         <h1>Instructeurs in dienst</h1>
         <p><span>Aantal instructeurs: </span>{{$aantalInstructeurs}}</p> <!-- Show total amount of instructors -->
@@ -25,7 +32,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($instructeurList as $instructeur) <!-- Foreach Loop to display all instructor details -->
+                @foreach($instructeurList as $instructeur)
+                <!-- Foreach Loop to display all instructor details -->
                 <tr>
                     <td>{{$instructeur->voornaam}}</td>
                     <td>{{$instructeur->tussenvoegsel}}</td>
